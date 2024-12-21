@@ -1,5 +1,5 @@
 import AddPatient from '../components/Patients/AddPatient';
-import PatientList from '../components/Patients/ PatientList';
+import PatientList from '../components/Patients/PatientsList';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,48 +1,70 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-export default function EditPharmacy({ pharmacyId, onUpdate }) {
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+const EditPharmacy = ({ pharmacy, onSave, onCancel }) => {
+  const [formData, setFormData] = useState({ ...pharmacy });
 
-  useEffect(() => {
-    const fetchPharmacy = async () => {
-      const response = await fetch(`/api/pharmacies/${pharmacyId}`);
-      const pharmacy = await response.json();
-      setName(pharmacy.name);
-      setAddress(pharmacy.address);
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    fetchPharmacy();
-  }, [pharmacyId]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await fetch(`/api/pharmacies/${pharmacyId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, address }),
-    });
-    onUpdate();
+    onSave(formData); // Pass the updated data back to the parent
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <h2 className="form-title">Edit Pharmacy</h2>
+    <form onSubmit={handleSubmit}>
+      <h3 className="text-lg font-bold mb-4">Edit Pharmacy</h3>
       <input
         type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
         placeholder="Pharmacy Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="form-input"
+        className="w-full mb-2 p-2 border rounded"
       />
       <input
         type="text"
+        name="address"
+        value={formData.address}
+        onChange={handleInputChange}
         placeholder="Address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        className="form-input"
+        className="w-full mb-2 p-2 border rounded"
       />
-      <button type="submit" className="form-button">Update</button>
+      <input
+        type="text"
+        name="contact_info"
+        value={formData.contact_info}
+        onChange={handleInputChange}
+        placeholder="Contact Info"
+        className="w-full mb-2 p-2 border rounded"
+      />
+      <input
+        type="text"
+        name="image_url"
+        value={formData.image_url}
+        onChange={handleInputChange}
+        placeholder="Image URL"
+        className="w-full mb-2 p-2 border rounded"
+      />
+      <div className="flex justify-end space-x-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Cancel
+        </button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          Save
+        </button>
+      </div>
     </form>
   );
-}
+};
+
+export default EditPharmacy;
