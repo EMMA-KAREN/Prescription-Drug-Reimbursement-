@@ -200,7 +200,7 @@ A React-based Claim Management System that allows users to manage insurance clai
 ## Links
 GITHUB :https://github.com/EMMA-KAREN/Prescription-Drug-Reimbursement-
 POWERPOINT:
-PRESENTATION:
+PRESENTATION:https://www.loom.com/share/d9996a42faf54285b59ab06591a832b4?sid=bf18bd34-ffad-4478-aab0-b39dccd593c4
 DEPLOYMENT:
 
 ### Future Improvements
